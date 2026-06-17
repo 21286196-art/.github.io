@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Small Dogs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="small-page">
+
+<div class="navbar">
+    <div class="logo">Dog 🐾</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="small.html">Small Dogs</a>
+        <a href="medium.html">Medium Dogs</a>
+        <a href="large.html">Large Dogs</a>
+        <a href="gallery.html">Gallery</a>
+    </div>
+</div>
+
+<main class="sequence">
+  <section class="image slide align-left hero-slide">
+      <img class="backdrop" src="images/small-full-bg.jpg" alt="small dog background">
+      <div class="text">
+          <div class="content">
+              <h1>Small Sized Dog Breeds</h1>
+              <p>Small breed dogs feature compact body size and lightweight build, which makes them ideal for apartment raising. They usually have lively personalities, rely heavily on human company and consume less food and activity space.</p>
+              <span class="scroll-tip">SCROLL DOWN ↓</span>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-right">
+      <img class="backdrop" src="images/pomeranian-full.jpg" alt="Pomeranian">
+      <div class="text">
+          <div class="content">
+              <h2>Pomeranian</h2>
+              <p>Pomeranians have fluffy double coats and alert fox-like faces. They are outgoing, noisy and full of curiosity, popular indoor lap dogs.</p>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-left">
+      <img class="backdrop" src="images/chihuahua-full.jpg" alt="Chihuahua">
+      <div class="text">
+          <div class="content">
+              <h2>Chihuahua</h2>
+              <p>As one of the tiniest dog breeds, Chihuahuas are brave beyond their size, loyal to their single owner and easy to carry around.</p>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-right">
+      <img class="backdrop" src="images/yorkshire-full.jpg" alt="Description">
+      <div class="text">
+         <div class="content">
+             <h2>Yorkshire Terrier</h2>
+             <p>These tiny, silky-coated terriers are bold, confident, and surprisingly energetic. They thrive on attention and make lively, affectionate lap dogs.</p>
+          </div>
+      </div>
+  </section>
+</main>
+
+<div class="main">
+    <p>More detailed introduction of small companion dogs.</p>
+</div>
+<footer class="footer">
+    <p>Dog Website</p>
+</footer>
+
+<script>
+const slides = document.querySelectorAll('.image.slide');
+let currentIndex = 0;
+const slideCount = slides.length;
+let isScrolling = false;
+
+slides[0].classList.add('active');
+
+function goToSlide(index) {
+  if (index < 0 || index >= slideCount || isScrolling) return;
+  isScrolling = true;
+
+  const targetTop = slides[index].offsetTop;
+  window.scrollTo({
+    top: targetTop,
+    behavior: 'smooth' 
+  });
+
+  slides.forEach(s => s.classList.remove('active'));
+  slides[index].classList.add('active');
+  currentIndex = index;
+
+  setTimeout(() => {
+    isScrolling = false;
+  }, 1200);
+}
+
+window.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  if (e.deltaY > 0) {
+    goToSlide(currentIndex + 1);
+  } else {
+    goToSlide(currentIndex - 1);
+  }
+}, { passive: false });
+
+const observer = new IntersectionObserver((items) => {
+  items.forEach(item => {
+    if (item.isIntersecting) {
+      item.target.classList.add('active')
+    }
+  })
+}, { threshold: 0.15 })
+
+slides.forEach(s => observer.observe(s))
+</script>
+</body>
+</html>

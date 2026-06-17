@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="gallery-page">
+
+<div class="navbar">
+    <div class="logo">Dog 🐾</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="small.html">Small Dogs</a>
+        <a href="medium.html">Medium Dogs</a>
+        <a href="large.html">Large Dogs</a>
+        <a href="gallery.html">Gallery</a>
+    </div>
+</div>
+
+<main class="sequence">
+  <section class="image slide align-left hero-slide">
+      <img class="backdrop" src="images/gallery-full-bg.jpg" alt="Dog Gallery">
+      <div class="text">
+          <div class="content">
+              <h1>Dog Gallery</h1>
+              <p>This gallery collects lovely photos of small, medium and large dog breeds. Every picture shows the unique charm of our furry friends.</p>
+              <span class="scroll-tip">SCROLL DOWN ↓</span>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-right">
+      <img class="backdrop" src="images/gallery1-full.jpg" alt="Dog Photo 1">
+      <div class="text">
+          <div class="content">
+              <h2>Cute Puppies</h2>
+              <p>Adorable little puppies bring warmth and joy to every family.</p>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-left">
+      <img class="backdrop" src="images/gallery2-full.jpg" alt="Dog Photo 2">
+      <div class="text">
+          <div class="content">
+              <h2>Playful Dogs</h2>
+              <p>Dogs love running and playing, full of energy all day long.</p>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-right">
+      <img class="backdrop" src="images/gallery3-full.jpg" alt="Dog Photo 3">
+      <div class="text">
+          <div class="content">
+              <h2>Gentle Companions</h2>
+              <p>Loyal and gentle, dogs are the most sincere friends of humans.</p>
+          </div>
+      </div>
+  </section>
+
+    <section class="image slide align-left">
+      <img class="backdrop" src="images/gallery4-full.jpg" alt="Description">
+      <div class="text">
+        <div class="content">
+            <h2>Warm Company</h2>
+            <p>A dog is not only a pet, but also a loyal family member.</p>
+          </div>
+      </div>
+  </section>
+
+</main>
+
+<div class="main">
+    <p>More wonderful dog photos here.</p>
+</div>
+<footer class="footer">
+    <p>Dog Website</p>
+</footer>
+
+<script>
+const slides = document.querySelectorAll('.image.slide');
+let currentIndex = 0;
+const slideCount = slides.length;
+let isScrolling = false;
+
+slides[0].classList.add('active');
+
+function goToSlide(index) {
+  if (index < 0 || index >= slideCount || isScrolling) return;
+  isScrolling = true;
+
+  const targetTop = slides[index].offsetTop;
+  window.scrollTo({
+    top: targetTop,
+    behavior: 'smooth' 
+  });
+
+  slides.forEach(s => s.classList.remove('active'));
+  slides[index].classList.add('active');
+  currentIndex = index;
+
+  setTimeout(() => {
+    isScrolling = false;
+  }, 1200);
+}
+
+window.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  if (e.deltaY > 0) {
+    goToSlide(currentIndex + 1);
+  } else {
+    goToSlide(currentIndex - 1);
+  }
+}, { passive: false });
+
+const observer = new IntersectionObserver((items) => {
+  items.forEach(item => {
+    if (item.isIntersecting) {
+      item.target.classList.add('active')
+    }
+  })
+}, { threshold: 0.15 })
+
+slides.forEach(s => observer.observe(s))
+</script>
+</body>
+</html>

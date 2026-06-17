@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medium Dogs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="medium-page">
+
+<div class="navbar">
+    <div class="logo">Dog 🐾</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="small.html">Small Dogs</a>
+        <a href="medium.html">Medium Dogs</a>
+        <a href="large.html">Large Dogs</a>
+        <a href="gallery.html">Gallery</a>
+    </div>
+</div>
+
+<main class="sequence">
+  <section class="image slide align-left hero-slide">
+      <img class="backdrop" src="images/medium-full-bg.jpg" alt="medium dog background">
+      <div class="text">
+          <div class="content">
+              <h1>Medium Sized Dog Breeds</h1>
+              <p>Medium dogs own well-proportioned bodies with moderate exercise demands. Balanced in energy and character, these breeds fit nearly all family types. They can adapt to courtyard or apartment life and excel at accompanying kids for daily outdoor activities.</p>
+              <span class="scroll-tip">SCROLL DOWN ↓</span>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-right">
+      <img class="backdrop" src="images/shiba-full.jpg" alt="Shiba Inu">
+      <div class="text">
+          <div class="content">
+              <h2>Shiba Inu</h2>
+              <p>Originated from Japan, Shiba Inus have independent temperaments and neat red fur. Clever and clean, they are among the most trendy medium companion dogs.</p>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-left">
+      <img class="backdrop" src="images/bordercollie-full.jpg" alt="Border Collie">
+      <div class="text">
+          <div class="content">
+              <h2>Border Collie</h2>
+              <p>Famous for top intelligence, Border Collies were originally sheep herding dogs. They need plenty of outdoor exercise and mental training.</p>
+          </div>
+      </div>
+  </section>
+
+    <section class="image slide align-right">
+      <img class="backdrop" src="images/husky-full.jpg" alt="Description">
+      <div class="text">
+        <div class="content">
+            <h2>Siberian Husky</h2>
+            <p>Energetic and independent, huskies are known for their striking blue eyes and wolf-like appearance. They are playful, loyal, and love outdoor adventures.</p>
+          </div>
+      </div>
+  </section>
+
+</main>
+
+<div class="main">
+    <p>More detailed introduction of medium companion dogs.</p>
+</div>
+<footer class="footer">
+    <p>Dog Website</p>
+</footer>
+
+<script>
+const slides = document.querySelectorAll('.image.slide');
+let currentIndex = 0;
+const slideCount = slides.length;
+let isScrolling = false;
+
+slides[0].classList.add('active');
+
+function goToSlide(index) {
+  if (index < 0 || index >= slideCount || isScrolling) return;
+  isScrolling = true;
+
+  const targetTop = slides[index].offsetTop;
+  window.scrollTo({
+    top: targetTop,
+    behavior: 'smooth' 
+  });
+
+  slides.forEach(s => s.classList.remove('active'));
+  slides[index].classList.add('active');
+  currentIndex = index;
+
+  setTimeout(() => {
+    isScrolling = false;
+  }, 1200);
+}
+
+window.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  if (e.deltaY > 0) {
+    goToSlide(currentIndex + 1);
+  } else {
+    goToSlide(currentIndex - 1);
+  }
+}, { passive: false });
+
+const observer = new IntersectionObserver((items) => {
+  items.forEach(item => {
+    if (item.isIntersecting) {
+      item.target.classList.add('active')
+    }
+  })
+}, { threshold: 0.15 })
+
+slides.forEach(s => observer.observe(s))
+</script>
+</body>
+</html>

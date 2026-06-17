@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Large Dogs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="large-page">
+
+<div class="navbar">
+    <div class="logo">Dog 🐾</div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="small.html">Small Dogs</a>
+        <a href="medium.html">Medium Dogs</a>
+        <a href="large.html">Large Dogs</a>
+        <a href="gallery.html">Gallery</a>
+    </div>
+</div>
+
+<main class="sequence">
+  <section class="image slide align-left hero-slide">
+      <img class="backdrop" src="images/large-full-bg.jpg" alt="large dog background">
+      <div class="text">
+          <div class="content">
+              <h1>Large Sized Dog Breeds</h1>
+              <p>Large dog breeds possess strong physique and stable mentality. Despite their big appearance, most of them are gentle towards family members. They require larger living space and long daily walks, many varieties are trained as rescue or guard working dogs.</p>
+              <span class="scroll-tip">SCROLL DOWN ↓</span>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-right">
+      <img class="backdrop" src="images/germanshepherd-full.jpg" alt="German Shepherd">
+      <div class="text">
+          <div class="content">
+              <h2>German Shepherd</h2>
+              <p>Smart, obedient and versatile, German Shepherds widely work as police, search and rescue dogs, also trustworthy family protectors.</p>
+          </div>
+      </div>
+  </section>
+
+  <section class="image slide align-left">
+      <img class="backdrop" src="images/golden-full.jpg" alt="Golden Retriever">
+      <div class="text">
+          <div class="content">
+              <h2>Golden Retriever</h2>
+              <p>With mild personality and golden silky fur, golden retrievers are patient with children and frequently used as guide dogs for disabled people.</p>
+          </div>
+      </div>
+  </section>
+
+    <section class="image slide align-right">
+      <img class="backdrop" src="images/alaskan-full.jpg" alt="Description">
+      <div class="text">
+        <div class="content">
+            <h2>Alaskan Malamute</h2>
+            <p>Strong, loyal, and friendly, Alaskan Malamutes are built for cold climates and love being part of a family. They are gentle giants with a playful, affectionate side.</p>
+          </div>
+      </div>
+  </section>
+
+</main>
+
+<div class="main">
+    <p>More detailed introduction of large companion dogs.</p>
+</div>
+<footer class="footer">
+    <p>Dog Website</p>
+</footer>
+
+<script>
+const slides = document.querySelectorAll('.image.slide');
+let currentIndex = 0;
+const slideCount = slides.length;
+let isScrolling = false;
+
+slides[0].classList.add('active');
+
+function goToSlide(index) {
+  if (index < 0 || index >= slideCount || isScrolling) return;
+  isScrolling = true;
+
+  const targetTop = slides[index].offsetTop;
+  window.scrollTo({
+    top: targetTop,
+    behavior: 'smooth' 
+  });
+
+  slides.forEach(s => s.classList.remove('active'));
+  slides[index].classList.add('active');
+  currentIndex = index;
+
+  setTimeout(() => {
+    isScrolling = false;
+  }, 1200);
+}
+
+window.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  if (e.deltaY > 0) {
+    goToSlide(currentIndex + 1);
+  } else {
+    goToSlide(currentIndex - 1);
+  }
+}, { passive: false });
+
+const observer = new IntersectionObserver((items) => {
+  items.forEach(item => {
+    if (item.isIntersecting) {
+      item.target.classList.add('active')
+    }
+  })
+}, { threshold: 0.15 })
+
+slides.forEach(s => observer.observe(s))
+</script>
+</body>
+</html>
